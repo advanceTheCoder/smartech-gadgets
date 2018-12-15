@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink,Link, Switch, Route } from 'react-router-dom';
-import { Menu, Input, Dropdown,Header,Sidebar,Segment,Icon,Button, Container} from 'semantic-ui-react';
-import Home from '../../Home/Home';
-import Register from '../Register/Register';
-import Login from '../Login/Login';
-import Contact from '../Contact/Contact';
-import About from '../About/About';
-import Blog from '../Blog/Blog';
-import Brands from '../Brands/Brands';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { Menu, Input, Dropdown,Header,Icon,Button} from 'semantic-ui-react';
+import Drawer from '../Drawer/Drawer';
 import './HeaderBar.css';
 
 class HeaderBar extends Component {
@@ -19,41 +12,8 @@ class HeaderBar extends Component {
         animation: 'overlay',
         direction: 'left',
         dimmed: false,
-        visible: false,
-        products:[],
-        product_name:'',
-        product_category:''
+        visible: false
     };
-
-    getProducts = () => {
-        let url =
-        "http://backend.test/products";
-        axios.get(url).then(response => {
-            this.setState({
-                products: response.data
-            });
-        }); 
-    }
-
-    updateSelectedCategory(event) {
-        this.fetchArticle(event.target.getAttribute('data-value'));
-    }
-    
-    getProduct(id) {
-
-        this.serverRequest = axios.get('http://backend.test/node/' + id + '?_format=json')
-        .then(function(result){
-            this.setState({
-                product_name: result.name,
-                product_category: result.category
-            });
-        })
-    }
-
-    componentDidMount = () =>{
-        this.getProduct();
-        this.getProducts();
-    }
 
     handleAnimationChange = animation => () =>
     this.setState({ animation, visible: !this.state.visible })
@@ -67,9 +27,9 @@ class HeaderBar extends Component {
             return (
                 <Dropdown text={userLinkTitle} simple>
                     <Dropdown.Menu className='dropdown-content'>
-                        <Dropdown.Item>Profie</Dropdown.Item>
+                        <Dropdown.Item><Link to='/user/profile'>Profie</Link></Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item>Logout</Dropdown.Item>
+                        <Dropdown.Item><Link to='/user/logout'>Logout</Link></Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             );
@@ -92,31 +52,6 @@ class HeaderBar extends Component {
         const { animation, dimmed, direction, visible } = this.state;
         const vertical = direction === 'bottom' || direction === 'top';
 
-        let productsData = this.state.products
-            .map(product => {
-
-                let path = '/brands/' + product.brand;
-                return (
-                    <Dropdown.Item key={product.id} >
-                        <NavLink data-value={product.id} to={path} >
-                            {product.brand}
-                        </NavLink>
-                    </Dropdown.Item>
-                );
-            });
-
-        let view;
-        if (productsData.length <= 0) {
-        view = <Header as='h1' />;
-        } else {
-        view = (
-        
-            <Dropdown.Menu>
-                {productsData}
-            </Dropdown.Menu>
-        );
-        }
-
         return (
             <div className='header-wrapper'>
                 <Header>
@@ -137,77 +72,12 @@ class HeaderBar extends Component {
                             </Menu.Item>
                         </Menu.Menu>
                     </Menu>
-                    <Sidebar.Pushable as={Segment}>
-                        <Sidebar
-                            as={Menu}
-                            animation={animation}
-                            direction={direction}
-                            icon='labeled'
-                            inverted
-                            vertical
-                            className='header-slider'
-                            visible={visible}
-                            width='thin'
-                            
-                        >
-                            <Menu.Item className='slider-content'>
-                                <Header as='h5'>
-                                    <Link to='/'>
-                                        Home
-                                    </Link>
-                                </Header>
-                            </Menu.Item>
-                            <Menu.Item className='slider-content'>
-                                <Header as='h5'>
-                                    <Dropdown text='Brands' simple >
-                                        {view}
-                                    </Dropdown>
-                                </Header>
-                            </Menu.Item >
-                            <Menu.Item className='slider-content'>
-                                <Header as='h5'>
-                                    <Link to='/blog'>
-                                        Blog
-                                    </Link>
-                                </Header>
-                            </Menu.Item>
-                            <Menu.Item className='slider-content'>
-                                <Header as='h5'>
-                                    <Link to='/about'>
-                                        About
-                                    </Link>
-                                </Header>
-                            </Menu.Item>
-                            <Menu.Item className='slider-content'>
-                                <Header as='h5'>
-                                    <Link to='/contact'>
-                                        Contact
-                                    </Link> 
-                                </Header>
-                            </Menu.Item>
-                            <Menu.Item  className='slider-content'>
-                            <Header as='h5'>
-                                {this.userLinks()}
-                            </Header>
-                            </Menu.Item>
-                        </Sidebar>
-
-                        <Sidebar.Pusher dimmed={dimmed && visible}>
-                            <Container fluid>
-                                <Segment className='header-segment' basic>
-                                    <Switch>
-                                        <Route path='/' component={Home} exact/>
-                                        <Route path = "/user/register" component = {Register} exact />
-                                        <Route path = "/user/login" component = {Login} exact />
-                                        <Route path = "/contact" component = {Contact} exact />
-                                        <Route path = "/about" component = {About} exact />
-                                        <Route path = "/blog" component = {Blog} exact />
-                                        <Route path = "/brands/:brand?" component = {Brands} exact />
-                                    </Switch>
-                                </Segment>
-                            </Container>
-                        </Sidebar.Pusher>
-                    </Sidebar.Pushable>
+                    <Drawer 
+                        user={this.userLinks()}
+                        animation={animation}
+                        dimmed={dimmed}
+                        visible={visible}
+                    />
                 </Header>
             </div>  
         );

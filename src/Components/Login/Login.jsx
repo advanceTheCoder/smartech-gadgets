@@ -22,10 +22,6 @@ class Login extends Component {
             pass: this.state.password
         })
         .then(response => {
-            this.setState({
-            'success': 'Login successful',
-            'error': ''
-            });
 
             localStorage.setItem('username', response.data.current_user.name);
             localStorage.setItem('uid', response.data.current_user.uid);

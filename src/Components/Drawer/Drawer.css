@@ -1,0 +1,26 @@
+  .drawer-segment{
+
+    background: orange !important; 
+    background: -webkit-linear-gradient(to right, #FFFFFF, orange) !important;
+    background: linear-gradient(to right, #FFFFFF, orange) !important;
+    width: inherit;
+    min-height: 400px;
+  }
+  .header-dropdown-content{
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+
+  }
+  .header-slider{
+    background: transparent !important;
+    height: auto !important;
+    justify-content:left;
+}
+  .slider-content{
+    text-align: start !important;
+  }
+
+.dropdown-content{
+    background: transparent !important;
+}
+  

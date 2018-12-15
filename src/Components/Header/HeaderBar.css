@@ -6,35 +6,7 @@
     min-height: 150px;
     margin-top: 5px;
   }
-  .header-segment{
 
-    background: orange !important; 
-    background: -webkit-linear-gradient(to right, #FFFFFF, orange) !important;
-    background: linear-gradient(to right, #FFFFFF, orange) !important;
-    width: inherit;
-    min-height: 400px;
-  }
-  .header-slider{
-      background: transparent !important;
-      height: auto !important;
-      justify-content:left;
-  }
-  .header-dropdown-content{
-    margin-top: 0 !important;
-    margin-left: 0 !important;
-
-  }
-  .slider-content{
-    text-align: start !important;
-  }
-.header-logo{
-    border: #FFFFFF solid;
-    border-radius: 10px;
-    height: 150px !important;
-}
-.dropdown-content{
-    background: transparent !important;
-}
   @media screen and (max-width: 500px) {
     .header-content {
       max-width: 1280px;

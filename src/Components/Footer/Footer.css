@@ -1,0 +1,6 @@
+.footer-segment{
+    background: gray !important; 
+    background: -webkit-linear-gradient(to right, #FFFFFF, gray) !important;
+    background: linear-gradient(to right, #FFFFFF, gray) !important;
+    min-height: 200px;
+}

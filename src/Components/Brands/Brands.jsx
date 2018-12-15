@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component, Fragment } from 'react';
+import axios from 'axios'
 import './Brands.css';
 
 class Brands extends Component {
 
     state = {
+        
         products:[],
         product_name:'',
         product_category:''
@@ -15,36 +16,37 @@ class Brands extends Component {
         "http://backend.test/products";
         axios.get(url).then(response => {
             this.setState({
-                products: response
+                products: response.data
             });
         }); 
     }
 
-    updateSelectedCategory(event) {
-        this.fetchArticle(event.target.getAttribute('data-value'));
-    }
+    // updateSelectedCategory(event) {
+    //     this.getProduct(event.target.getAttribute('data-value'));
+    // }
     
-    getProduct(id) {
+    // getProduct(id) {
 
-        this.serverRequest = axios.get('http://backend.test/node/' + id + '?_format=json')
-        .then(function(result){
-            this.setState({
-                product_name: result.name,
-                product_category: result.category
-            });
-        })
-    }
+    //     this.serverRequest = axios.get('http://backend.test/node/' + id + '?_format=json')
+    //     .then(function(result){
+    //         this.setState({
+    //             product_name: result.name,
+    //             product_category: result.category
+    //         });
+    //     })
+    // }
 
     componentDidMount = () =>{
-        this.getProduct();
+        // this.getProduct();
         this.getProducts();
     }
 
     render(){
+
         return(
-            <div>
+            <Fragment>
                 Brands
-            </div>
+            </Fragment>
         );
     };
 };
