@@ -6,7 +6,7 @@ import Login from '../Login/Login';
 import Contact from '../Contact/Contact';
 import About from '../About/About';
 import Blog from '../Blog/Blog';
-import Brands from '../Brands/Brands';
+import Brands from '../Products/Brands';
 import Logout from '../Logout/Logout';
 import Profile from '../Profile/Profile';
 

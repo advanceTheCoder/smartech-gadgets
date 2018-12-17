@@ -8,18 +8,17 @@ import './Drawer.css';
 class Drawer extends Component {
 
     state = {
-        
-        products:[],
+
+        brands:[],
         product_name:'',
         product_category:''
     };
 
     getProducts = () => {
-        let url =
-        "http://backend.test/products";
+        let url = "http://backend.test/brands";
         axios.get(url).then(response => {
             this.setState({
-                products: response.data
+                brands: response.data
             });
         }); 
     }
@@ -31,26 +30,26 @@ class Drawer extends Component {
     render() {
         
         const { animation, dimmed, direction, visible } = this.props;
+        const  {brands} = this.state;
 
-        let productsData = this.state.products
-            .map(product => {
+        let brandsMenu = brands.map(brand => {
                 return (
-                    <Dropdown.Item key={product.id} >
-                        <NavLink data-value={product.id} to={product.brand} >
-                            {product.brand}
+                    <Dropdown.Item key={brand.id} >
+                        <NavLink to={brand.brand}>
+                            {brand.brand}
                         </NavLink>
                     </Dropdown.Item>
                 );
             });
 
         let view;
-        if (productsData.length <= 0) {
+        if (brandsMenu.length <= 0) {
         view = <Header as='h1' />;
         } else {
         view = (
         
             <Dropdown.Menu>
-                {productsData}
+                {brandsMenu}
             </Dropdown.Menu>
         );
         }

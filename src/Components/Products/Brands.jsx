@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
-import { Card, Grid, Header } from 'semantic-ui-react';
-import axios from 'axios';
+import React, { Component, Fragment } from 'react';
+import axios from 'axios'
+import './Products.css';
+import { Card, Grid, Tab } from 'semantic-ui-react';
+import categories from './Categories';
 
-class Home extends Component{
+
+class Brands extends Component {
 
     state = {
-        filterKey:"",
-        filterVal:"",
+        
         products:[],
         name:'',
         category:'',
@@ -16,9 +18,9 @@ class Home extends Component{
         brand:''
 
     };
-
+    
     getProducts = () => {
-        let url = "http://backend.test/products";
+        let url ="http://backend.test/products";
         axios.get(url).then(response => {
             this.setState({
                 products: response.data
@@ -31,12 +33,12 @@ class Home extends Component{
     }
 
     render(){
-        const {filterKey,filterVal} = this.state;
-        
+        let productBrand = this.props.match.params.brand;
         let productsData = this.state.products;
-        if(filterKey !== "") 
-        productsData.filter(product => product[filterKey] === filterVal);
-        const productsView  = productsData.map(product => {
+
+        const brandView = productsData
+        .filter(product => product.brand === productBrand)
+            .map(product => {
                 return (
                     <Grid.Column key={product.id}>
                         <Card
@@ -50,23 +52,13 @@ class Home extends Component{
                 );
             });
 
-        let view;
-        if (productsData.length <= 0) {
-        view = <Header as='h1' />;
-        } else {
-        view = (
-            <Grid relaxed columns={4}>
-                {productsView}
-            </Grid>
-        );
-        }
-
         return(
-            <div className='home-wrapper'>
-                {view}
-            </div>
+            <Fragment>
+                <Tab menu={{ pointing: true }} panes={categories(this.state.products,this.props.match.params.brand)} />
+            </Fragment>
         );
     };
 };
 
-export default Home;
+
+export default Brands;

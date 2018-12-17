@@ -1,0 +1,8 @@
+.products-tab{
+    background: orange !important; 
+    background: -webkit-linear-gradient(to right, #FFFFFF, orange) !important;
+    background: linear-gradient(to right, #FFFFFF, orange) !important;
+}
+
+.product-card{
+}
