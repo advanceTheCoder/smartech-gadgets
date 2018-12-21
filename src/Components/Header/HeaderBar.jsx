@@ -9,7 +9,7 @@ class HeaderBar extends Component {
     state = {
 
         username: localStorage.getItem('username'),
-        animation: 'overlay',
+        animation: 'uncover',
         direction: 'left',
         dimmed: false,
         visible: false

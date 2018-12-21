@@ -1,8 +1,4 @@
   .drawer-segment{
-
-    background: orange !important; 
-    background: -webkit-linear-gradient(to right, #FFFFFF, orange) !important;
-    background: linear-gradient(to right, #FFFFFF, orange) !important;
     width: inherit;
     min-height: 400px;
   }
@@ -16,6 +12,13 @@
     height: auto !important;
     justify-content:left;
 }
+.ui.left.visible.sidebar, .ui.right.visible.sidebar{
+  box-shadow: none;
+}
+.ui.vertical.menu{
+  box-shadow: none;
+}
+
   .slider-content{
     text-align: start !important;
   }

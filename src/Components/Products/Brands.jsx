@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios'
 import './Products.css';
-import { Card, Grid, Tab } from 'semantic-ui-react';
+import { Tab, Header } from 'semantic-ui-react';
 import categories from './Categories';
 
 
@@ -33,28 +33,16 @@ class Brands extends Component {
     }
 
     render(){
-        let productBrand = this.props.match.params.brand;
-        let productsData = this.state.products;
-
-        const brandView = productsData
-        .filter(product => product.brand === productBrand)
-            .map(product => {
-                return (
-                    <Grid.Column key={product.id}>
-                        <Card
-                            image={product.image}
-                            header={product.name}
-                            meta={product.price}
-                            description={product.description}
-                            extra={product.brand}
-                        />
-                    </Grid.Column>
-                );
-            });
 
         return(
             <Fragment>
-                <Tab menu={{ pointing: true }} panes={categories(this.state.products,this.props.match.params.brand)} />
+                <Header as='h1' textAlign='center'>
+                    {this.props.match.params.brand}
+                </Header>
+                <Tab 
+                    menu={{ pointing: true }} 
+                    panes={categories(this.state.products,this.props.match.params.brand)}
+                />
             </Fragment>
         );
     };

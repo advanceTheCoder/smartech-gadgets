@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, Grid, Header } from 'semantic-ui-react';
+import NewProducts from './NewProducts';
+import PopularCategories from './PopularCategories';
 import axios from 'axios';
 
 class Home extends Component{
@@ -7,63 +8,80 @@ class Home extends Component{
     state = {
         filterKey:"",
         filterVal:"",
+
         products:[],
-        name:'',
-        category:'',
-        price:'',
-        image:[],
-        description:'',
-        brand:''
+
+        categories:[]
 
     };
 
     getProducts = () => {
         let url = "http://backend.test/products";
-        axios.get(url).then(response => {
+        axios.get(url).then(product => {
             this.setState({
-                products: response.data
+                products: product.data
+            });
+        }); 
+    }
+
+    getCategories = () => {
+        let url = "http://backend.test/categories";
+        axios.get(url).then(category => {
+            this.setState({
+                categories:category.data
             });
         }); 
     }
 
     componentDidMount = () =>{
+        this.getCategories();
         this.getProducts();
+        
     }
 
     render(){
-        const {filterKey,filterVal} = this.state;
-        
-        let productsData = this.state.products;
-        if(filterKey !== "") 
-        productsData.filter(product => product[filterKey] === filterVal);
-        const productsView  = productsData.map(product => {
-                return (
-                    <Grid.Column key={product.id}>
-                        <Card
-                            image={product.image}
-                            header={product.name}
-                            meta={product.price}
-                            description={product.description}
-                            extra={product.brand}
-                        />
-                    </Grid.Column>
-                );
-            });
+        // const {filterKey,filterVal} = this.state;
+        // console.log(this.state.products);
+        // let productsData = this.state.products;
+        // if(filterKey !== "") 
+        // productsData.filter(product => product[filterKey] === filterVal);
+        // const productsView  = productsData.map(product => {
+        //         return (
+        //             <Grid.Column key={product.id}>
+        //                 <Card
+        //                     image={product.image}
+        //                     header={product.name}
+        //                     meta={product.price}
+        //                     description={product.description}
+        //                     extra={product.brand}
+        //                 />
+        //             </Grid.Column>
+        //         );
+        //     });
 
-        let view;
-        if (productsData.length <= 0) {
-        view = <Header as='h1' />;
-        } else {
-        view = (
-            <Grid relaxed columns={4}>
-                {productsView}
-            </Grid>
-        );
-        }
+        // let view;
+        // if (productsData.length <= 0) {
+        // view = <Header as='h1' />;
+        // } else {
+        // view = (
+        //     <Grid relaxed columns={4}>
+        //         {productsView}
+        //     </Grid>
+        // );
+        // }
 
         return(
             <div className='home-wrapper'>
-                {view}
+                <PopularCategories 
+                    categories={this.state.categories}
+                />
+                <NewProducts />
+                <div>
+                    Mobile Phone
+                </div>
+                <div>
+                    Headphone
+                </div>
             </div>
         );
     };
