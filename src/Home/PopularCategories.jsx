@@ -1,5 +1,23 @@
 import React, { Component } from 'react';
 import {Card, Grid, Header } from 'semantic-ui-react';
+import OwlCarousel from 'react-owl-carousel';
+
+const options = {
+    0:{
+        items:1,
+        nav:true
+    },
+    600:{
+        items:2,
+        nav:false
+    },
+    1000:{
+        items:4,
+        margin:5,
+        loop:true,
+        dots:false
+    }
+};
 
 class PopularCategories extends Component{
     render(){
@@ -18,8 +36,15 @@ class PopularCategories extends Component{
         });
         let view;
         view=(
-            <Grid relaxed columns={4}>
-                {categoryView}
+            <Grid relaxed columns={3}>
+                <OwlCarousel
+                    className="owl-theme"
+                    autoplay='true'
+                    responsiveClass='true'
+                    responsive={options}
+                >
+                    {categoryView}
+                </OwlCarousel>
             </Grid>
         )
         return(

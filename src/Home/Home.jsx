@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NewProducts from './NewProducts';
 import PopularCategories from './PopularCategories';
+import ProductImage from './ProductImage';
 import axios from 'axios';
 
 class Home extends Component{
@@ -10,7 +11,7 @@ class Home extends Component{
         filterVal:"",
 
         products:[],
-
+        product_image:null,
         categories:[]
 
     };
@@ -20,6 +21,7 @@ class Home extends Component{
         axios.get(url).then(product => {
             this.setState({
                 products: product.data
+                
             });
         }); 
     }
@@ -40,42 +42,24 @@ class Home extends Component{
     }
 
     render(){
-        // const {filterKey,filterVal} = this.state;
-        // console.log(this.state.products);
-        // let productsData = this.state.products;
-        // if(filterKey !== "") 
-        // productsData.filter(product => product[filterKey] === filterVal);
-        // const productsView  = productsData.map(product => {
-        //         return (
-        //             <Grid.Column key={product.id}>
-        //                 <Card
-        //                     image={product.image}
-        //                     header={product.name}
-        //                     meta={product.price}
-        //                     description={product.description}
-        //                     extra={product.brand}
-        //                 />
-        //             </Grid.Column>
-        //         );
-        //     });
-
-        // let view;
-        // if (productsData.length <= 0) {
-        // view = <Header as='h1' />;
-        // } else {
-        // view = (
-        //     <Grid relaxed columns={4}>
-        //         {productsView}
-        //     </Grid>
-        // );
-        // }
-
         return(
             <div className='home-wrapper'>
-                <PopularCategories 
-                    categories={this.state.categories}
-                />
-                <NewProducts />
+                {this.state.products?
+                    <div>
+                    <ProductImage
+                        products={this.state.products}
+                    />
+                    </div>:null}
+                <div>
+                    <PopularCategories 
+                        categories={this.state.categories}
+                    />
+                </div>
+                <div>
+                    <NewProducts 
+                        categories={this.state.categories}
+                    />
+                </div>
                 <div>
                     Mobile Phone
                 </div>
